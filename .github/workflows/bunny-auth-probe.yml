@@ -8,12 +8,12 @@ jobs:
     steps:
       - name: probe
         env:
-          LIBKEY: ${{ secrets.BUNNY_LIBKEY }}
+          KEY: ${{ secrets.BUNNY_LIBKEY }}
         run: |
           echo "IP: $(curl -s https://api.ipify.org)"
-          echo -n "video API with lib key: "
-          curl -s -o /tmp/a.json -w "%{http_code}\n" -H "AccessKey: $LIBKEY" "https://video.bunnycdn.com/library/802449/videos?page=1&itemsPerPage=3"
-          head -c 300 /tmp/a.json; echo
-          echo -n "account API with lib key: "
-          curl -s -o /dev/null -w "%{http_code}\n" -H "AccessKey: $LIBKEY" "https://api.bunny.net/videolibrary/802449"
+          echo -n "video API + acc key: "
+          curl -s -o /tmp/a.json -w "%{http_code}\n" -H "AccessKey: $KEY" "https://video.bunnycdn.com/library/802449/videos?page=1&itemsPerPage=3"
+          head -c 200 /tmp/a.json; echo
+          echo -n "account API + acc key: "
+          curl -s -o /dev/null -w "%{http_code}\n" -H "AccessKey: $KEY" "https://api.bunny.net/videolibrary/802449"
   
